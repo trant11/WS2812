@@ -32,7 +32,7 @@ MKDIR = mkdir
 ifeq ($(OS),Windows_NT)
     uname_S := Windows
 
-	CC_ROOT = "/c/Program Files/SDCC"
+	CC_ROOT = "/d/SDCC"
 	CC = $(CC_ROOT)/bin/sdcc
 	LN = cp
 	OPENOCD = openocd -f .make/stm8s-flash.cfg -f interface/stlink.cfg -f target/stm8s.cfg
