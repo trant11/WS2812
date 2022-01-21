@@ -93,7 +93,7 @@
 #define USE_FULL_ASSERT    (1) 
 
 /* Exported macro ------------------------------------------------------------*/
-#ifdef  USE_FULL_ASSERT
+//#ifdef  USE_FULL_ASSERT
 
 /**
   * @brief  The assert_param macro is used for function's parameters check.

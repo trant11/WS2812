@@ -40,16 +40,16 @@ void neopixel(uint8_t * data, uint16_t length)
 }
 
 
-// test pattern for (16 RGB LED ring)
+// BRG
 uint8_t colors[24] = {
-    1, 1, 1,     
-    1, 1, 1,    
-    0, 1, 1,   
+    0, 0, 0,     
     0, 0, 0,    
-    0, 0, 0,   
-    0, 0, 0, 
-    0, 0, 0,         
-    0, 0, 0
+    0, 50, 50,   
+    0, 0, 100,    
+    0, 0, 10,   
+    0, 0, 80, 
+    0, 10, 0,         
+    10, 0, 0
 };
 
 void delay_ms(uint16_t ms) {
@@ -77,6 +77,11 @@ int main(void)
         }
         delay_ms(100);
         neopixel(colors, sizeof(colors));
+
+        if(GPIO_ReadInputPin(GPIOB,GPIO_PIN_6)==0){
+            colors[15]=50;
+            neopixel(colors, sizeof(colors));
+	}
     }
  }
 
