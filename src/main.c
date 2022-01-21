@@ -10,22 +10,11 @@
 
 #define NCODER_CLK_PORT GPIOD
 #define NCODER_DATA_PORT GPIOD
-#define NCODER_CLK_PIN GPIO_PIN_2
-#define NCODER_DATA_PIN GPIO_PIN_0
+#define NCODER_CLK_PIN GPIO_PIN_5
+#define NCODER_DATA_PIN GPIO_PIN_6
 #define NCODER_GET_CLK (GPIO_ReadInputPin(NCODER_CLK_PORT, NCODER_CLK_PIN)!=RESET)
 #define NCODER_GET_DATA (GPIO_ReadInputPin(NCODER_DATA_PORT, NCODER_DATA_PIN)!=RESET)
 
-//ENCODER DEFINE
-/*#define swt_PORT GPIOE
-#define swt_PIN GPIO_PIN_0
-#define enc_swt (GPIO_ReadInputPin(swt_PORT, swt_PIN)== RESET)
-#define NCODER_CLK_PORT GPIOD
-#define NCODER_DATA_PORT GPIOD
-#define NCODER_CLK_PIN GPIO_PIN_6
-#define NCODER_DATA_PIN GPIO_PIN_5
-#define NCODER_GET_CLK (GPIO_ReadInputPin(NCODER_CLK_PORT, NCODER_CLK_PIN)!=RESET)
-#define NCODER_GET_DATA (GPIO_ReadInputPin(NCODER_DATA_PORT, NCODER_DATA_PIN)!=RESET)
-*/
 //LCD DEFINE
 #define LCD_RS_PORT GPIOF
 #define LCD_RW_PORT GPIOF
@@ -54,15 +43,15 @@ GPIO_Init(LCD_D4_PORT, LCD_D4_PIN, GPIO_MODE_OUT_PP_LOW_SLOW);
 GPIO_Init(LCD_D5_PORT, LCD_D5_PIN, GPIO_MODE_OUT_PP_LOW_SLOW);
 GPIO_Init(LCD_D6_PORT, LCD_D6_PIN, GPIO_MODE_OUT_PP_LOW_SLOW);
 GPIO_Init(LCD_D7_PORT, LCD_D7_PIN, GPIO_MODE_OUT_PP_LOW_SLOW);
+
 GPIO_Init(swt_PORT,swt_PIN,GPIO_MODE_IN_FL_NO_IT);
-GPIO_Init (NCODER_CLK_PORT, NCODER_CLK_PIN, GPIO_MODE_IN_FL_NO_IT );
-GPIO_Init (NCODER_DATA_PORT, NCODER_DATA_PIN, GPIO_MODE_IN_FL_NO_IT );
+GPIO_Init (NCODER_CLK_PORT, NCODER_CLK_PIN, GPIO_MODE_IN_PU_NO_IT );
+GPIO_Init (NCODER_DATA_PORT, NCODER_DATA_PIN, GPIO_MODE_IN_PU_NO_IT );
 }
 
 //Proměnné
 char text[32];
 uint16_t enc_value = 0;
-//_Bool minuly = 0;
 uint32_t time_enc = 0;
 /*
 uint32_t time_enc_swt = 0;
@@ -78,7 +67,7 @@ _Bool porucha = 0;
 */
 
 int8_t check_ncoder(void){ //funkce pro ncoder
-int8_t minuly = 0;
+unsigned int minuly = 0;
 if (minuly == 0 && NCODER_GET_CLK == 1){
 minuly = 1;
 if (NCODER_GET_DATA == 0){
@@ -104,15 +93,8 @@ init_milis();
 lcd_clear();
 
 while(1){
-   /*
-    if (enc_value < 0){ //Ošetření přetečení
-    enc_value=0;
-    }
-    else if (enc_value > 100){
-   enc_value=100;
-    }
-*/
-    if (milis() - time_enc > 7){
+
+    if (milis() - time_enc > 2){
     time_enc = milis();
     enc_value += check_ncoder(); //Kontrola ncoderu
       

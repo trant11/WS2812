@@ -18,7 +18,7 @@ K napájení nám stačí USB/ micro-USB kabel, který napájí STM8 kit napět�
 Kód využívá tlačítka přímo na kitu (USER, RESET), ale je možné použít i externě zapojená tlačítka. 
 
 ## Součástky:
-* rotační n-kodér - Udává aktuální stav. Při rotaci bude nabývat hodnot 0-100. 
+* rotační n-kodér - Udává aktuální stav. Při rotaci bude nabývat hodnot 0-100.  Můžeme ho zapojit k STM8 na piny, které si zvolíme.
 * LED modul WS2812 - Modul obsahuje 8 LED diod. Programujeme je pomocí dátového výstupu MOSI. Pomocí 3 bitů na každé ledce nastavujeme barvu a jas.
    - Modul vizuálně indikuje stav baterie jak barvou, tak počtem rozvícených diod.
 * LCD displej HD44780 - K tomuto displeji je přímo knihovna (stm8_hd44780.h, stm8_hd44780.c). Jas displeje je regulovaný pomocí potenciometru 5kΩ, který je připojený na nepájivém poli. 
