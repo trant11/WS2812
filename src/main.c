@@ -53,6 +53,7 @@ GPIO_Init (NCODER_DATA_PORT, NCODER_DATA_PIN, GPIO_MODE_IN_PU_NO_IT );
 char text[32];
 uint16_t enc_value = 0;
 uint32_t time_enc = 0;
+int minuly = 0;  //nespecifukuje jak velký (kolik Bytů) má datový typ: INT, SHORT, LONG, CHAR jak třeba uint8_t
 /*
 uint32_t time_enc_swt = 0;
 uint32_t time_ye = 0;
@@ -67,7 +68,6 @@ _Bool porucha = 0;
 */
 
 int8_t check_ncoder(void){ //funkce pro ncoder
-unsigned int minuly = 0;
 if (minuly == 0 && NCODER_GET_CLK == 1){
 minuly = 1;
 if (NCODER_GET_DATA == 0){
