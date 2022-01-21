@@ -84,4 +84,4 @@ int main(void)
 	}
     }
  }
-lů
+
