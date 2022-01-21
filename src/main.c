@@ -6,12 +6,12 @@
 
 #define swt_PORT GPIOB
 #define swt_PIN GPIO_PIN_7
-#define swt (GPIO_ReadInputPin(swt_PORT, swt_PIN)== RESET)
+#define enc_swt (GPIO_ReadInputPin(swt_PORT, swt_PIN)== RESET)
 
-#define NCODER_CLK_PORT GPIOE
-#define NCODER_DATA_PORT GPIOE
-#define NCODER_CLK_PIN GPIO_PIN_1
-#define NCODER_DATA_PIN GPIO_PIN_2
+#define NCODER_CLK_PORT GPIOD
+#define NCODER_DATA_PORT GPIOD
+#define NCODER_CLK_PIN GPIO_PIN_2
+#define NCODER_DATA_PIN GPIO_PIN_0
 #define NCODER_GET_CLK (GPIO_ReadInputPin(NCODER_CLK_PORT, NCODER_CLK_PIN)!=RESET)
 #define NCODER_GET_DATA (GPIO_ReadInputPin(NCODER_DATA_PORT, NCODER_DATA_PIN)!=RESET)
 
@@ -62,7 +62,7 @@ GPIO_Init (NCODER_DATA_PORT, NCODER_DATA_PIN, GPIO_MODE_IN_FL_NO_IT );
 //Proměnné
 char text[32];
 uint16_t enc_value = 0;
-_Bool minuly = 0;
+//_Bool minuly = 0;
 uint32_t time_enc = 0;
 /*
 uint32_t time_enc_swt = 0;
@@ -78,7 +78,7 @@ _Bool porucha = 0;
 */
 
 int8_t check_ncoder(void){ //funkce pro ncoder
-int minuly = 0;
+int8_t minuly = 0;
 if (minuly == 0 && NCODER_GET_CLK == 1){
 minuly = 1;
 if (NCODER_GET_DATA == 0){
@@ -115,27 +115,30 @@ while(1){
     if (milis() - time_enc > 7){
     time_enc = milis();
     enc_value += check_ncoder(); //Kontrola ncoderu
+      
+    lcd_gotoxy(0,0);
+    sprintf(text,"hodnota: %5d", enc_value);
+    lcd_puts(text);
+    }
+
     if ( enc_value < 0){ //Ošetření přetečení
      enc_value=99;
     }else if ( enc_value > 99){
      enc_value=0;
     }
-    }
-    /*
+    
+/*
     if (enc_swt == 0){
     lcd_gotoxy(0,0);
     lcd_puts("Vyberte tlacitko");
     }
+
     else {
-    */
-    /*
     lcd_gotoxy(0,0);
     sprintf(text, "0%10u");
     lcd_puts(text);
 */
-    lcd_gotoxy(0,0);
-   sprintf(text,"hodnota: %5d", enc_value);
-    lcd_puts(text);
+
 
 /*
 if (milis() - time_ncoder > 7){

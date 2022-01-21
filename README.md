@@ -19,23 +19,13 @@ Kód využívá tlačítka přímo na kitu (USER, RESET), ale je možné použí
 
 ## Součástky:
 * rotační n-kodér - Udává aktuální stav. Při rotaci bude nabývat hodnot 0-100. 
-    # - Zapojení:
-     Piny zřejmě musíme zapojit přesně tak, jak jsou zapojeny v tomto projektu. Při jiném zapojení mi displej nefungoval.
-     ```
-             #define swt_PORT GPIOB
-            #define swt_PIN GPIO_PIN_7
-            #define NCODER_CLK_PORT GPIOE
-            #define NCODER_DATA_PORT GPIOE
-            #define NCODER_CLK_PIN GPIO_PIN_1
-            #define NCODER_DATA_PIN GPIO_PIN_2
-             ```
 * LED modul WS2812 - Modul obsahuje 8 LED diod. Programujeme je pomocí dátového výstupu MOSI. Pomocí 3 bitů na každé ledce nastavujeme barvu a jas.
    - Modul vizuálně indikuje stav baterie jak barvou, tak počtem rozvícených diod.
 * LCD displej HD44780 - K tomuto displeji je přímo knihovna (stm8_hd44780.h, stm8_hd44780.c). Jas displeje je regulovaný pomocí potenciometru 5kΩ, který je připojený na nepájivém poli. 
     # - Zapojení:
         K STM8 připojíme datové piny D4-D7. Piny D0-D3 necháme nezapojené.
         Dále k STM8 připojíme vstupy RS, RW, E.
-        Piny musíme zapojit přesně tak, jak jsou zapojeny v tomto projektu, k vůli stejnému problému jako u n-kodéru.
+        Piny zřejmě musíme zapojit přesně tak, jak jsou zapojeny v tomto projektu. Při jiném zapojení mi displej nefungoval.
              ```
              #define LCD_RS_PORT GPIOF
             #define LCD_RW_PORT GPIOF
